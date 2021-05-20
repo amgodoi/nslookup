@@ -1,29 +1,15 @@
 /**
- * socket.c
+ * nslookup.c
  */
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#include <assert.h>
 #include <stdio.h>
-
-#include <inttypes.h> // C99 standard, needed to use printf and scanf with <stdint.h> data types
-#include <stdint.h>   // C99 standard
-#include <stdbool.h>  // C99 standard
-#include <wchar.h>    // wchar_t definition
-#include <stddef.h>   // wchar_t definition
 
 #include <string.h>
 #include <stdlib.h>
-
-#include <locale.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-
 
 int main(int argc, char *argv[])
 {
@@ -41,8 +27,9 @@ int main(int argc, char *argv[])
     char *node = argv[1];
     printf("node: %s\n", node);
 
-    struct addrinfo *servinfo; // will point to the results
+    struct addrinfo *servinfo;        // point to the results
     int status;
+
     if ((status = getaddrinfo(node, NULL, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
         exit(1);
@@ -72,6 +59,6 @@ int main(int argc, char *argv[])
     
     freeaddrinfo(servinfo);
 
-	return 0;
+    return 0;
 }
 
